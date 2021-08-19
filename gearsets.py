@@ -92,13 +92,13 @@ for idx in tqdm(range(len(gearSets)),position=0,leave=True):
   #print(pps)
 
   #Add Chicken
-  if isValidGearset(sps,piety,900):
+  if isValidGearset(sps,piety,0):
     d = damageCalc(pps, weaponDamage, 115, mainStat, addFood(crit, 101), addFood(det, 168), dh, sps, 5)
     results[d] = (option, "chicken")
 
 
   new_sps = addFood(sps, 101)
-  if isValidGearset(new_sps,piety,900):
+  if isValidGearset(new_sps,piety,0):
     pps = potencyPerSec(new_sps)
     d = damageCalc(pps, weaponDamage, 115, mainStat, addFood(crit, 168), det, dh, new_sps, 5)
     results[d] = (option, "salad")

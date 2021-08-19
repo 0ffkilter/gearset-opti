@@ -80,23 +80,23 @@ def getGcd(sps):
 	return gcd
 
 def cycleLen(gcd, casterTax = 0.1):
-	if (30 % gcd > 1.5):
-		return 6 * ceil(30/gcd) * gcd
+	if ((30 - 2*gcd) % (gcd + casterTax)) > 1.5:
+		return 6 * (2 * gcd + ceil((30 - 2 * gcd)/(gcd + casterTax)) * (gcd + casterTax)) - 1 * casterTax
 	else:
-		return 6 * floor(30/gcd) * gcd
+		return 6 * (2 * gcd + floor((30 - 2 * gcd)/(gcd + casterTax)) * (gcd + casterTax)) - 1 * casterTax
 
 
 
-def potencyCalc(sps, gcd, cycleLen, gcdDamage=240, dot=40, extra=260):
+def potencyCalc(sps, gcd, cycleLen, casterTax=0.1, gcdDamage=240, instantDamage=200, dot=40, extra=260):
 	#190 potency is 2 free eds and a ruin 2 +ed
 	base_damage = extra * 3 * cycleLen/180
-	if ((30 -gcd) % gcd > 1.5):
-		base_damage += 6 * (ceil(30/gcd) -1) * gcdDamage
+	if ((30 - 2*gcd) % (gcd + casterTax) > 1.5):
+		base_damage += 6 * (ceil((30 - 2* gcd)/(gcd + casterTax)) -1) * gcdDamage + 2 * gcdDamage + 4 * instantDamage
 		base_damage += 6 * 10 * getSpsScalar(sps) * dot
 	else:
-		base_damage += 6 * (floor(30/gcd) - 1) * gcdDamage
+		base_damage += 6 * (floor((30 - 2* gcd)/(gcd + casterTax)) -1) * gcdDamage + 2 * gcdDamage + 4 * instantDamage
 		base_damage += 6 * 9 * getSpsScalar(sps) * dot
-		base_damage += 6 * ((3 - (30 % gcd))/3) * getSpsScalar(sps) * dot
+		base_damage += 6 * ((3 - ((30 - 2 *gcd) % (gcd + casterTax)))/3) * getSpsScalar(sps) * dot
 	return base_damage
 
 
