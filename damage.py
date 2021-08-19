@@ -63,7 +63,7 @@ def cycleLen(gcd, casterTax = 0.1):
 def spsScalar(sps):
 	return (1000 + floor(130 * (sps - 364)/2170))/1000
 
-def potencyCalc(sps, gcd, cycleLen, gcdDamage=240, dot=40, extra=190):
+def potencyCalc(sps, gcd, cycleLen, gcdDamage=240, dot=40, extra=260):
 	#190 potency is 2 free eds and a ruin 2 +ed
 	base_damage = extra * 3 * cycleLen/180
 	if ((30 -gcd) % gcd > 1.5):
