@@ -15,9 +15,15 @@ class Gear():
 		self.piety = subStatFloor(line[8], self.slot)
 
 	def __str__(self):
-		return ", ".join([str(x) for x in [self.slot,self.name,self.wDamage,
-											self.mainstat,self.crit,self.det,
-											self.dh,self.sps,self.piety]])
+		return ("Slot: " + self.slot).ljust(14) + " | " + \
+    ("Name " + (self.name)).ljust(40) + " | " + \
+    ("wDamage: " + str(self.wDamage)).ljust(12)  + " | "+  \
+    ("mainstat: " + str(self.mainstat)).ljust(12) + " | " + \
+    ("crit: " + str(self.crit)).ljust(12) + " | " + \
+    ("det: " + str(self.det)).ljust(12) + " | " + \
+    ("dh: " + str(self.dh)).ljust(12) + " | " + \
+    ("sps: " + str(self.sps)).ljust(12) + " | " + \
+    ("piety: " + str(self.piety)).ljust(12)
 
 getCrit = lambda  items: sum([i.crit for i in items])
 getDet = lambda  items: sum([i.det for i in items])
@@ -62,17 +68,16 @@ gearSets = list(itertools.product(*pieces))
 
 results = {}
 for option in gearSets:
-	sps = sum([p.sps for p in option])
-	crit = sum([p.crit for p in option])
-	det = sum([p.det for p in option])
-	dh = sum([p.dh for p in option])
+	sps = sum([p.sps for p in option]) +364
+	crit = sum([p.crit for p in option]) + 364
+	det = sum([p.det for p in option]) + 364
+	dh = sum([p.dh for p in option]) + 364
 	weaponDamage =sum([p.wDamage for p in option])
 	mainStat = sum([p.mainstat for p in option])
-	piety = sum([p.piety for p in option])
+	piety = sum([p.piety for p in option]) + 364
 	#print(sps)
 	pps = potencyPerSec(sps)
 	#print(pps)
-	d = damageCalc(pps, weaponDamage, 115, mainStat, det, crit, dh, sps, 5)
 
 	#Add Chicken
 	d = damageCalc(pps, weaponDamage, 115, mainStat, addFood(crit, 101), addFood(det, 168), dh, sps, 5)
@@ -84,10 +89,18 @@ for option in gearSets:
 	#print(d)
 	
 final_sets = sorted(results.items(), key=lambda x: x[0])
-for k, v in final_sets:
-	print(k, getGcd(getSps(v[0])), getCrit(v[0]) + 364,getDet(v[0]) + 364,getDh(v[0]) + 364,getSps(v[0]) + 364, getPiety(v[0]) + 364)
+#for k, v in final_sets:
+#print(k, getGcd(getSps(v[0])), getCrit(v[0]) + 364,getDet(v[0]) + 364,getDh(v[0]) + 364,getSps(v[0]) + 364, getPiety(v[0]) + 364)
 
 print(len(final_sets))
-damage, (best_set, food) = final_sets[-1]
 
-print([i.name for i in list(best_set)], food)
+for i in range(-1, 0, 1):
+  damage, (best_set, food) = final_sets[i]
+  print("\n".join([str(i) for i in list(best_set)]))
+  print(food)
+  print(damage, getGcd(getSps(best_set)),
+   getCrit(best_set) + 364,
+   getDet(best_set) + 364,
+   getDh(best_set) + 364,
+   getSps(best_set) + 364,
+   getPiety(best_set) + 364)
