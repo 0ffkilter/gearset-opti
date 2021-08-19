@@ -1,0 +1,34 @@
+weapon,Relic,180,725,280,280,0,280,280
+
+hat,Orator+2_2dh,0,176,160,0,80,112,0
+hat,Orator+2_1dh1sps,0,176,160,0,40,152,0
+
+chest,Edenmorn gown,0,671,489,342,0,0,0,0
+
+hands,Orator+2_2dh,0,176,0,0,80,160,112
+hands,Edenmorn,0,413,211,0,0,0,301
+hands,Edenchoir,0,353,281,197,0,0,0
+hands,Yorha-51,0,287,256,0,0,179,0
+
+waist,Edengrace,0,227,198,139,0,0,0
+waist,Edenmorn,0,310,0,226,0,158,0
+waist,Edenmorn,0,279,216,0,0,151,0
+
+legs,Shadowless,0,505,434,304,0,0,0
+legs,Law's Order,0,604,468,0,0,328,0
+
+shoes,Orator+2_2dh,0,176,160,0,80,112,0,0
+shoes,Orator+2_2sps,0,176,160,0,0,112,80,0
+shoes,Orator+2_1dh1sps,0,176,160,0,40,112,40,0
+
+earrings,Augmented Cryptlurker,0,310,158,226,0,0,0
+earrings,Edenmorn,0,310,158,0,0,226,0
+
+neck,Bonewicca,0,132,84,0,40,120,0
+neck,Aug Cryptlurker,0,310,226,0,0,158,0
+
+wrist,Aug Cryptlurker,0,310,226,0,0,158,0
+wrist,EdenChoir,0,265,211,148,0,0,0
+
+ring,Aug Exarchic,0,294,221,155,0,0,0
+ring,Edenmorn,0,310,226,0,0,158,0
