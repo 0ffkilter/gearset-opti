@@ -1,5 +1,7 @@
 from damage import *
 import itertools
+from tqdm import tqdm
+import sys
 
 class Gear():
   def __init__(self, line):
@@ -13,6 +15,10 @@ class Gear():
     self.dh = subStatFloor(line[6], self.slot)
     self.sps = subStatFloor(line[7], self.slot)
     self.piety = subStatFloor(line[8], self.slot)
+    self.unique = False
+    if len(line) > 9:
+      if line[9] == "true":
+        self.unique = True
 
   def __str__(self):
     return ("Slot: " + self.slot).ljust(14) + " | " + \
@@ -34,11 +40,11 @@ getPiety = lambda items: sum([i.piety for i in items])
 
 
 #If we wanted to check to make sure we have the right sps
-validSpsRanges = [(849,914),(1449,1649)]
-#validSpsRanges = [(1,3500)]
+#validSpsRanges = [(849,914),(1449,1649)]
+validSpsRanges = [(1,3500)]
 
-def isValidSps(sps):
-  return any([sps >= low and sps <= high for (low, high) in validSpsRanges])
+def isValidGearset(sps, piety=0, minPiety=0):
+  return any([sps >= low and sps <= high for (low, high) in validSpsRanges]) and piety >= minPiety
 
 gear = {}
 
@@ -56,7 +62,7 @@ for line in lines:
       gear[piece.slot] = [piece]
 
 #Duplicate rings cuz we need 2 of them
-gear['ring2'] = gear['ring']
+gear['ring2'] = [i for i in gear['ring'] if not i.unique]
 
 pieces = list(gear.values())
 
@@ -71,7 +77,9 @@ else:
 
 
 results = {}
-for option in gearSets:
+for idx in tqdm(range(len(gearSets)),position=0,leave=True):
+  sys.stdout.flush()
+  option = gearSets[idx]
   sps = sum([p.sps for p in option]) +364
   crit = sum([p.crit for p in option]) + 364
   det = sum([p.det for p in option]) + 364
@@ -84,13 +92,13 @@ for option in gearSets:
   #print(pps)
 
   #Add Chicken
-  if isValidSps(sps):
+  if isValidGearset(sps,piety,900):
     d = damageCalc(pps, weaponDamage, 115, mainStat, addFood(crit, 101), addFood(det, 168), dh, sps, 5)
     results[d] = (option, "chicken")
 
 
   new_sps = addFood(sps, 101)
-  if isValidSps(new_sps):
+  if isValidGearset(new_sps,piety,900):
     pps = potencyPerSec(new_sps)
     d = damageCalc(pps, weaponDamage, 115, mainStat, addFood(crit, 168), det, dh, new_sps, 5)
     results[d] = (option, "salad")
@@ -103,7 +111,7 @@ final_sets = sorted(results.items(), key=lambda x: x[0])
 
 print(len(final_sets))
 
-for i in range(-1, 0, 1):
+for i in range(-5, 0, 1):
   damage, (best_set, food) = final_sets[i]
   print("\n".join([str(i) for i in list(best_set)]))
   

@@ -16,7 +16,6 @@ chest,Edenmorn Chest,0,671,489,342,0,0,0,0
 hands,Orator+2 Gloves 2dh melds,0,176,0,0,80,160,112
 
 #Crit/Piety, Crit/Det, and Crit/SPS
-hands,Edenmorn Gloves,0,413,211,0,0,0,301
 hands,Edenchoir Gloves,0,353,281,197,0,0,0
 hands,Yorha-51 Gloves,0,287,256,0,0,179,0
 
@@ -53,3 +52,36 @@ wrist,EdenChoir Wrist,0,265,211,148,0,0,0
 #Crit/Det and Crit/SPS - can use edenmete + edenmorn
 ring,Augmented Exarchic Ring,0,294,221,155,0,0,0
 ring,Edenmorn/Edenmete Ring,0,310,226,0,0,158,0
+ring,Bonewicca +1dh,0,132,120,0,40,84,0
+
+#Piety Options
+
+
+hat,bonewicca hat 2crit,0,176,80,0,0,112,160
+hat,Augmented Cryptlurker,0,353,197,0,0,0,281
+
+chest,Yorha-type 53,0,545,314,0,0,0,448
+
+hands,Edenmorn Gloves,0,413,211,0,0,0,301
+
+waist,Augmented Cryptlurker,0,310,226,0,0,0,158
+
+legs,Edenmorn,0,671,489,0,0,0,342
+
+shoes,Augmented Cryptlurker,0,413,211,0,0,0,301
+
+earrings,Bonewicca 1crit,0,132,40,0,0,120,84
+earrings,Immaculate,0,204,186,0,0,0,130
+
+neck,Bonewicca 1piety,0,132,84,0,0,120,40
+neck,Augmented Deepshadow,0,227,139,0,0,0,198
+
+wrist,Bonewicca 1dh,0,132,84,0,40,0,120
+wrist,Bonewicca 1sps,0,132,84,0,0,40,120
+wrist,Edenmete,0,279,151,0,0,0,216
+
+ring,Neo-Ishgardian,0,252,207,0,0,0,145
+ring,Bonewicca +1piety,0,132,120,0,0,84,40,true
+
+
+
