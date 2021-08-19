@@ -111,12 +111,11 @@ final_sets = sorted(results.items(), key=lambda x: x[0])
 
 print(len(final_sets))
 
-for i in range(-5, 0, 1):
-  damage, (best_set, food) = final_sets[i]
-  print("\n".join([str(i) for i in list(best_set)]))
-  
 
-  
+
+def calcSetStats(gear, food,damage):
+  print("\n".join([str(i) for i in list(best_set)]))
+
   mind = getMainstat(best_set)
   sps =  addFood(getSps(best_set) + 364, (101 if food == "salad" else 0))
   gcd = round(getGcd(sps),2)
@@ -134,3 +133,15 @@ for i in range(-5, 0, 1):
   print("Sps: " + str(sps) + " | SPS Multiplier " + str(getSpsScalar(sps)))
   print("Piety: " + str(piety))
   print("Food: " + food)
+
+  
+def calcWithTuple(final_set):
+  damage, (best_set, food) = final_set
+  calcSetStats(best_set, food, damage)
+
+  
+  
+for i in range(-5, 0, 1):
+  damage, (best_set, food) = final_sets[i]
+  calcSetStats(best_set, food,damage)
+
