@@ -23,7 +23,7 @@ hands,Yorha-51 Gloves,0,287,256,0,0,179,0
 #Crit/Det, Crit/SPS, and Det/SPS belts
 waist,Edengrace Waist,0,227,198,139,0,0,0
 waist,Edenmorn Waist,0,310,0,226,0,158,0
-waist,Edenmorn Waist,0,279,216,0,0,151,0
+waist,Edenmete Waist,0,279,216,0,0,151,0
 
 #Crit/Det and Crit/SPS
 legs,Shadowless Legs,0,505,434,304,0,0,0
