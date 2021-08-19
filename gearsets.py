@@ -26,19 +26,16 @@ getSps = lambda items: sum([i.sps for i in items])
 getPiety = lambda items: sum([i.piety for i in items])
 
 
-
+#If we wanted to check to make sure we have the right sps
 validSpsRanges = [(849,914),(1449,1649)]
 
 def isValid(pieces):
 	piety = 364 + sum([p.piety for p in pieces])
-	print(piety)
+	#print(piety)
 	if piety < 600:
 		return False
 	else:
 		return True
-	sps = 364 + sum([p.sps for p in pieces])
-	return any([sps > low and sps < high for low, high in validSpsRanges])
-
 
 gear = {}
 
@@ -47,18 +44,20 @@ with open("gear/gear.txt",'r') as f:
 
 
 for line in lines:
-	if ',' in line:
+	if ',' in line and not line.startswith("#"):
+		print(line)
 		piece = Gear(line)
 		if piece.slot in gear:
 			gear[piece.slot].append(piece)
 		else:
 			gear[piece.slot] = [piece]
 
+#Duplicate rings cuz we need 2 of them
 gear['ring2'] = gear['ring']
 
-
-
 pieces = list(gear.values())
+
+#Generate all combinations of them
 gearSets = list(itertools.product(*pieces))
 
 results = {}
@@ -70,22 +69,23 @@ for option in gearSets:
 	weaponDamage =sum([p.wDamage for p in option])
 	mainStat = sum([p.mainstat for p in option])
 	piety = sum([p.piety for p in option])
+	#print(sps)
 	pps = potencyPerSec(sps)
 	#print(pps)
 	d = damageCalc(pps, weaponDamage, 115, mainStat, det, crit, dh, sps, 5)
 
 	#Add Chicken
-	d = damageCalc(pps, weaponDamage, 115, mainStat, addFood(det, 168), addFood(crit, 101), dh, sps, 5)
+	d = damageCalc(pps, weaponDamage, 115, mainStat, addFood(crit, 101), addFood(det, 168), dh, sps, 5)
 	results[d] = (option, "chicken")
 
-	d = damageCalc(pps, weaponDamage, 115, mainStat, det, addFood(crit, 168), dh, addFood(sps, 101), 5)
+	d = damageCalc(pps, weaponDamage, 115, mainStat, addFood(crit, 168), det, dh, addFood(sps, 101), 5)
 	results[d] = (option, "salad")
 	#Add Salad
 	#print(d)
 	
 final_sets = sorted(results.items(), key=lambda x: x[0])
 for k, v in final_sets:
-	print(k, getGcd(getSps(v[0])), getCrit(v[0]),getDet(v[0]),getDh(v[0]),getSps(v[0]) + 364, getPiety(v[0]) + 364)
+	print(k, getGcd(getSps(v[0])), getCrit(v[0]) + 364,getDet(v[0]) + 364,getDh(v[0]) + 364,getSps(v[0]) + 364, getPiety(v[0]) + 364)
 
 print(len(final_sets))
 damage, (best_set, food) = final_sets[-1]

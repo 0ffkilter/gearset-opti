@@ -1,6 +1,6 @@
 from math import floor,ceil
 
-def damageCalc(potencyPerSec, weaponDamage, jobMod, mainStat, det, crit, direct, spellSpeed, classNum):
+def damageCalc(potencyPerSec, weaponDamage, jobMod, mainStat, crit, det, direct, spellSpeed, classNum):
 	#mainstat damage, 1% + per number of classes
 	mainStat = floor(mainStat * (1 + 0.01 * classNum))
 	
@@ -42,7 +42,8 @@ def damageCalc(potencyPerSec, weaponDamage, jobMod, mainStat, det, crit, direct,
 def addFood(stat, val, cap=0.1):
 	return max(val, stat * cap)
 
-gcd_benchmarks = [381,448,515,581,648,715,782,849,915,982,1049,116,1182,1249,1316,1383,1449,1516,1583,1650,1717]
+#Can't find formula, so manual benchmarks
+gcd_benchmarks = [381,448,515,581,648,715,782,849,915,982,1049,116,1182,1249,1316,1383,1449,1516,1583,1650,1717,1783,1850,1917,1984,2050]
 
 def getGcd(sps):
 	gcd = 2.5
@@ -51,6 +52,7 @@ def getGcd(sps):
 			gcd -= .01
 		else:
 			return gcd
+	return gcd
 
 def cycleLen(gcd, casterTax = 0.1):
 	if (30 % gcd > 1.5):
