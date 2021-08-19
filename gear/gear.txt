@@ -31,8 +31,7 @@ legs,Law's Order Legs,0,604,468,0,0,328,0
 
 #Melded Shoes
 shoes,Orator+2 shoes 2dh melds,0,176,160,0,80,112,0,0
-shoes,Orator+2 shoes 2sps melds,0,176,160,0,0,112,80,0
-shoes,Orator+2 shoes 1dh 1sps meld,0,176,160,0,40,112,40,0
+shoes,Orator+2 shoes 1dh 1sps meld,0,176,160,0,40,152,40,0
 
 #Crit/Det and Crit/SPS
 shoes,Exarchic Shoes,0,392,294,206,0,0,0

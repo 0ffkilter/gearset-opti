@@ -36,7 +36,7 @@ getPiety = lambda items: sum([i.piety for i in items])
 validSpsRanges = [(849,914),(1449,1649)]
 
 def isValidSps(sps):
-  return any([sps > low and sps < high for (low, high) in validSpsRanges])
+  return any([sps >= low and sps <= high for (low, high) in validSpsRanges])
 
 gear = {}
 
@@ -59,7 +59,14 @@ gear['ring2'] = gear['ring']
 pieces = list(gear.values())
 
 #Generate all combinations of them
-gearSets = list(itertools.product(*pieces))
+
+if all([len(i) == 1 for i in pieces]):
+  gearSets = [[i[0] for i in pieces]]
+else:
+  gearSets = list(itertools.product(*pieces))
+
+
+
 
 results = {}
 for option in gearSets:
@@ -91,7 +98,7 @@ final_sets = sorted(results.items(), key=lambda x: x[0])
 #for k, v in final_sets:
 #print(k, getGcd(getSps(v[0])), getCrit(v[0]) + 364,getDet(v[0]) + 364,getDh(v[0]) + 364,getSps(v[0]) + 364, getPiety(v[0]) + 364)
 
-print(len(final_sets))
+#print(len(final_sets))
 
 for i in range(-1, 0, 1):
   damage, (best_set, food) = final_sets[i]

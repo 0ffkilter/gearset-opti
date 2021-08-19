@@ -26,7 +26,7 @@ def damageCalc(potencyPerSec, weaponDamage, jobMod, mainStat, crit, det, direct,
 	critDirectDamage = floor(critDamage * 1250/100)
 
 	#crit rate
-	critRate = floor(200 * (crit - 164)/2170 + 50)/1000
+	critRate = floor(200 * (crit - 364)/2170 + 50)/1000
 
 	#dh rate
 	dhRate = floor(550 * (direct - 364)/2170)/1000
@@ -48,7 +48,7 @@ gcd_benchmarks = [381,448,515,581,648,715,782,849,915,982,1049,116,1182,1249,131
 def getGcd(sps):
 	gcd = 2.5
 	for i in gcd_benchmarks:
-		if sps > i:
+		if sps >= i:
 			gcd -= .01
 		else:
 			return gcd
