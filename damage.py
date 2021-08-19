@@ -1,5 +1,30 @@
 from math import floor,ceil
 
+
+def getCritRate(crit):
+  return floor(200 * (crit - 364)/2170 + 50)/1000
+
+def getCritDamage(crit):
+  return (1000 + floor(200 * (crit - 364)/2170 + 400))/1000
+
+def getDhRate(dh):
+  return floor(550 * (dh - 364)/2170)/1000
+
+def getDhDamage(damage=1):
+  return floor(damage * 1250/1000)
+
+def getCdhRate(crit, dh):
+  return floor(getCritRate(crit) * getDhRate(dh))
+
+def getCdhDamage(crit, dh, damage):
+  return floor(damage * getCritDamage(crit) * 1250/1000)
+
+def getDetMultiplier(det):
+  return (1000 + floor(130 * (det - 292)/2170))/1000
+
+def getSpsScalar(sps):
+  return (1000 + floor(130 * (sps - 364)/2170))/1000
+
 def damageCalc(potencyPerSec, weaponDamage, jobMod, mainStat, crit, det, direct, spellSpeed, classNum):
 	#mainstat damage, 1% + per number of classes
 	mainStat = floor(mainStat * (1 + 0.01 * classNum))
@@ -8,30 +33,30 @@ def damageCalc(potencyPerSec, weaponDamage, jobMod, mainStat, crit, det, direct,
 	damage = floor(potencyPerSec * (weaponDamage + floor(292 * jobMod/1000)) * (100 + floor((mainStat - 292) * 1000/2336))/100)
 	
 	#Det Damage
-	damage = floor(damage * (1000 + floor(130 * (det - 292)/2170))/1000)
+	damage = floor(damage * getDetMultiplier(det))
 	
 	#SPS Damage
-	damage = floor(damage * (1000 + floor(130 * (spellSpeed - 364)/2170))/1000/100)
+	damage = floor(damage * getSpsScalar(spellSpeed)/100)
 
 	#Trait Damage
 	damage = floor(damage * 1.3)
 
 	#crit damage
-	critDamage = floor(damage * (1000 + floor(200 * (crit - 364)/2170 + 400))/1000)
+	critDamage = floor(damage * getCritDamage(crit))
 
 	#dh damage, 25%
-	directDamage = floor(damage * 1250/1000)
+	directDamage = getDhDamage(damage)
 
 	#cdh damage
-	critDirectDamage = floor(critDamage * 1250/100)
+	critDirectDamage = getCdhDamage(crit, direct, damage)
 
 	#crit rate
-	critRate = floor(200 * (crit - 364)/2170 + 50)/1000
+	critRate = getCritRate(crit)
 
 	#dh rate
-	dhRate = floor(550 * (direct - 364)/2170)/1000
+	dhRate = getDhRate(direct)
 
-	critDirectRate = critRate * dhRate
+	critDirectRate = getCdhRate(crit, direct)
 
 	normalRate = 1 - critRate - dhRate - critDirectRate
 
@@ -43,7 +68,7 @@ def addFood(stat, val, cap=0.1):
 	return stat + min(val, stat * cap)
 
 #Can't find formula, so manual benchmarks
-gcd_benchmarks = [381,448,515,581,648,715,782,849,915,982,1049,116,1182,1249,1316,1383,1449,1516,1583,1650,1717,1783,1850,1917,1984,2050]
+gcd_benchmarks = [381,448,515,581,648,715,782,849,915,982,1049,1116,1182,1249,1316,1383,1449,1516,1583,1650,1717,1783,1850,1917,1984,2050,2117,2184,2251,2317,2384]
 
 def getGcd(sps):
 	gcd = 2.5
@@ -60,19 +85,18 @@ def cycleLen(gcd, casterTax = 0.1):
 	else:
 		return 6 * floor(30/gcd) * gcd
 
-def spsScalar(sps):
-	return (1000 + floor(130 * (sps - 364)/2170))/1000
+
 
 def potencyCalc(sps, gcd, cycleLen, gcdDamage=240, dot=40, extra=260):
 	#190 potency is 2 free eds and a ruin 2 +ed
 	base_damage = extra * 3 * cycleLen/180
 	if ((30 -gcd) % gcd > 1.5):
 		base_damage += 6 * (ceil(30/gcd) -1) * gcdDamage
-		base_damage += 6 * 10 * spsScalar(sps) * dot
+		base_damage += 6 * 10 * getSpsScalar(sps) * dot
 	else:
 		base_damage += 6 * (floor(30/gcd) - 1) * gcdDamage
-		base_damage += 6 * 9 * spsScalar(sps) * dot
-		base_damage += 6 * ((3 - (30 % gcd))/3) * spsScalar(sps) * dot
+		base_damage += 6 * 9 * getSpsScalar(sps) * dot
+		base_damage += 6 * ((3 - (30 % gcd))/3) * getSpsScalar(sps) * dot
 	return base_damage
 
 
