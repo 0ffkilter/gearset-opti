@@ -39,8 +39,8 @@ shoes,Exarchic Shoes,0,392,294,206,0,0,0
 shoes,Augmented Crystarium Shoes,0,335,275,0,0,193,0
 
 #Crit/Det and Crit/SPS
-earrings,Augmented Cryptlurker Shoes,0,310,158,226,0,0,0
-earrings,Edenmorn Shoes,0,310,158,0,0,226,0
+earrings,Augmented Cryptlurker Earrings,0,310,158,226,0,0,0
+earrings,Edenmorn Earrings,0,310,158,0,0,226,0
 
 #Melded, Crit/Det and Crit/SPS
 neck,Bonewicca Necklace 1 dh meld,0,132,84,0,40,120,0

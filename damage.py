@@ -40,7 +40,7 @@ def damageCalc(potencyPerSec, weaponDamage, jobMod, mainStat, crit, det, direct,
 
 
 def addFood(stat, val, cap=0.1):
-	return max(val, stat * cap)
+	return stat + min(val, stat * cap)
 
 #Can't find formula, so manual benchmarks
 gcd_benchmarks = [381,448,515,581,648,715,782,849,915,982,1049,116,1182,1249,1316,1383,1449,1516,1583,1650,1717,1783,1850,1917,1984,2050]
